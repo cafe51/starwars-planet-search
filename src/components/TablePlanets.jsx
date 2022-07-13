@@ -2,24 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function TablePlanets({ planets }) {
-  // const {
-  //   name,
-
-  //   rotation_period,
-  //   orbital_period,
-  //   diameter,
-  //   climate,
-
-  //   gravity,
-  //   terrain,
-  //   surface_water,
-  //   population,
-
-  //   films,
-  //   created,
-  //   edited,
-  //   url,
-  // } = planets;
   return (
     <table>
       <thead>
