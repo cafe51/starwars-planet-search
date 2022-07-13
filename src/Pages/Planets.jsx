@@ -1,33 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import Filters from '../components/Filters';
 import TablePlanets from '../components/TablePlanets';
 
 function Planets() {
-  const [usePlanets, setPlanets] = useState([]);
-  const [useSearchText, setSearchText] = useState('');
+  // const [usePlanets, setPlanets] = useState([]);
+  // const [useFilter, setFilter] = useState({
+  //   nameFilter: '',
+  // });
 
-  useEffect(() => {
-    async function fetchdata() {
-      const url = 'https://swapi-trybe.herokuapp.com/api/planets/';
-      const response = await fetch(url);
-      const { results } = await response.json();
-      const filteredResults = results
-        .filter((result) => (result.name.toLowerCase().includes(useSearchText)));
-      setPlanets(filteredResults);
-      console.log(results);
-    }
-    fetchdata();
-  }, [useSearchText]);
+  // useEffect(() => {
+  //   async function fetchdata() {
+  //     const url = 'https://swapi-trybe.herokuapp.com/api/planets/';
+  //     const response = await fetch(url);
+  //     const { results } = await response.json();
+  //     const filteredResults = results
+  //       .filter((result) => (result.name.toLowerCase().includes(useFilter.nameFilter)));
+  //     setPlanets(filteredResults);
+  //     console.log(results);
+  //   }
+  //   fetchdata();
+  // }, [useFilter]);
+
+  // const handleFilterName = (name) => {
+  //   setFilter({
+  //     ...useFilter,
+  //     nameFilter: name,
+  //   });
+  // };
 
   return (
     <div>
-      <input
-        type="text"
-        placeholder="Search"
-        value={ useSearchText }
-        onChange={ ({ target }) => setSearchText(target.value) }
-        data-testid="name-filter"
-      />
-      <TablePlanets planets={ usePlanets } />
+      <Filters />
+      <TablePlanets />
     </div>
   );
 }

@@ -1,7 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
+import StarWarsContext from '../Context/StarWarsContext';
+// import PropTypes from 'prop-types';
 
-function TablePlanets({ planets }) {
+function TablePlanets() {
+  const { usePlanets } = useContext(StarWarsContext);
+
   return (
     <table>
       <thead>
@@ -22,7 +25,7 @@ function TablePlanets({ planets }) {
         </tr>
       </thead>
       <tbody>
-        {planets.map(({
+        {usePlanets.map(({
           name,
 
           rotation_period: rotationPeriod,
@@ -65,24 +68,24 @@ function TablePlanets({ planets }) {
   );
 }
 
-TablePlanets.propTypes = {
-  planets: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      rotationPeriod: PropTypes.string,
-      orbital_period: PropTypes.string,
-      diameter: PropTypes.string,
-      climate: PropTypes.string,
-      gravity: PropTypes.string,
-      terrain: PropTypes.string,
-      surface_water: PropTypes.string,
-      population: PropTypes.string,
-      films: PropTypes.arrayOf(PropTypes.string),
-      created: PropTypes.string,
-      edited: PropTypes.string,
-      url: PropTypes.string,
-    }),
-  ).isRequired,
-};
+// TablePlanets.propTypes = {
+//   usePlanets: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       name: PropTypes.string,
+//       rotationPeriod: PropTypes.string,
+//       orbital_period: PropTypes.string,
+//       diameter: PropTypes.string,
+//       climate: PropTypes.string,
+//       gravity: PropTypes.string,
+//       terrain: PropTypes.string,
+//       surface_water: PropTypes.string,
+//       population: PropTypes.string,
+//       films: PropTypes.arrayOf(PropTypes.string),
+//       created: PropTypes.string,
+//       edited: PropTypes.string,
+//       url: PropTypes.string,
+//     }),
+//   ).isRequired,
+// };
 
 export default TablePlanets;
