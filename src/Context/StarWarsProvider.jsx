@@ -45,6 +45,24 @@ function StarWarsProvider({ children }) {
     });
   };
 
+  const setFilterListFunction = (value) => {
+    setFiltersList(
+      [...useFiltersList.filter((filter) => (filter.collumnFilter !== value))],
+    );
+  };
+
+  const collumns = [
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ];
+
+  const collumnsToFilter = useFiltersList.map((c) => c.collumnFilter);
+  const filteredCollumns = collumns.filter((c) => !collumnsToFilter.includes(c));
+  // const collumnValue = document.getElementById('column-filter');
+
   const handleClickFilter = () => {
     // console.log('ANTES', usePlanets);
     // setPlanets(useStandardPlanets);
@@ -68,7 +86,11 @@ function StarWarsProvider({ children }) {
           Number(result[useFilters.collumnFilter]) === Number(useFilters.valueFilter)
         )));
     }
-    // console.log('DEPOIS', usePlanets);
+    setFilter({
+      ...useFilters,
+      collumnFilter: filteredCollumns
+        .filter((f) => useFilters.collumnFilter !== f)[0],
+    });
   };
 
   const context = {
@@ -78,6 +100,8 @@ function StarWarsProvider({ children }) {
     handleFilterName,
     handleChangeFilter,
     handleClickFilter,
+    setFilterListFunction,
+    filteredCollumns,
   };
 
   return (

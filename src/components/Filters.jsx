@@ -8,18 +8,9 @@ function Filters() {
     handleFilterName,
     handleChangeFilter,
     handleClickFilter,
+    setFilterListFunction,
+    filteredCollumns,
   } = useContext(StarWarsContext);
-
-  const collumns = [
-    'population',
-    'orbital_period',
-    'diameter',
-    'rotation_period',
-    'surface_water',
-  ];
-
-  const collumnsToFilter = useFiltersList.map((c) => c.collumnFilter);
-  const filteredCollumns = collumns.filter((c) => !collumnsToFilter.includes(c));
 
   const operators = [
     'maior que',
@@ -27,10 +18,29 @@ function Filters() {
     'igual a',
   ];
 
-  console.log(filteredCollumns);
-
   return (
     <div>
+      <div>
+        {
+          useFiltersList.map((filter) => (
+            <div key={ filter.collumnFilter }>
+              <div
+                data-testid="filter"
+              >
+                {`${filter.collumnFilter} ${filter.operatorFilter} ${filter.valueFilter}`}
+              </div>
+              <button
+                type="button"
+                data-testid="button-remove-filters"
+                onClick={ () => setFilterListFunction(filter.collumnFilter) }
+              >
+                X
+              </button>
+            </div>
+
+          ))
+        }
+      </div>
       <div>
         <label htmlFor="nameFilter">
           Nome
@@ -49,7 +59,8 @@ function Filters() {
           Coluna
           <select
             onChange={ handleChangeFilter }
-            value={ useFilters.collumnFilter }
+            // value={ useFilters.collumnFilter }
+            // value="diameter"
             name="collumnFilter"
             id="column-filter"
             data-testid="column-filter"
