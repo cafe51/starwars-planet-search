@@ -4,6 +4,7 @@ import StarWarsContext from '../Context/StarWarsContext';
 function Filters() {
   const {
     useFilters,
+    useFiltersList,
     handleFilterName,
     handleChangeFilter,
     handleClickFilter,
@@ -17,11 +18,16 @@ function Filters() {
     'surface_water',
   ];
 
+  const collumnsToFilter = useFiltersList.map((c) => c.collumnFilter);
+  const filteredCollumns = collumns.filter((c) => !collumnsToFilter.includes(c));
+
   const operators = [
     'maior que',
     'menor que',
     'igual a',
   ];
+
+  console.log(filteredCollumns);
 
   return (
     <div>
@@ -49,7 +55,7 @@ function Filters() {
             data-testid="column-filter"
           >
             {
-              collumns.map((collumn) => (
+              filteredCollumns.map((collumn) => (
                 <option
                   key={ collumn }
                   value={ collumn }

@@ -12,6 +12,8 @@ function StarWarsProvider({ children }) {
     valueFilter: 0,
   });
 
+  const [useFiltersList, setFiltersList] = useState([]);
+
   useEffect(() => {
     async function fetchdata() {
       const url = 'https://swapi-trybe.herokuapp.com/api/planets/';
@@ -49,6 +51,7 @@ function StarWarsProvider({ children }) {
     // .filter((result) => (result.name.toLowerCase().includes(useFilters.nameFilter))));
     // const newPlanets = usePlanets;
     // console.log(useStandardPlanets);
+    setFiltersList(useFiltersList.concat([useFilters]));
     if (useFilters.operatorFilter === 'maior que') {
       setPlanets(usePlanets
         .filter((result) => (
@@ -65,15 +68,16 @@ function StarWarsProvider({ children }) {
           Number(result[useFilters.collumnFilter]) === Number(useFilters.valueFilter)
         )));
     }
-    console.log('DEPOIS', usePlanets);
+    // console.log('DEPOIS', usePlanets);
   };
 
   const context = {
     useFilters,
+    usePlanets,
+    useFiltersList,
     handleFilterName,
     handleChangeFilter,
     handleClickFilter,
-    usePlanets,
   };
 
   return (
