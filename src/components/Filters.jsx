@@ -10,6 +10,7 @@ function Filters() {
     handleClickFilter,
     setFilterListFunction,
     filteredCollumns,
+    deleteAllFilters,
   } = useContext(StarWarsContext);
 
   const operators = [
@@ -28,18 +29,24 @@ function Filters() {
                 data-testid="filter"
               >
                 {`${filter.collumnFilter} ${filter.operatorFilter} ${filter.valueFilter}`}
+                <button
+                  type="button"
+                  onClick={ () => setFilterListFunction(filter.collumnFilter) }
+                >
+                  X
+                </button>
               </div>
-              <button
-                type="button"
-                data-testid="button-remove-filters"
-                onClick={ () => setFilterListFunction(filter.collumnFilter) }
-              >
-                X
-              </button>
             </div>
 
           ))
         }
+        <button
+          type="button"
+          data-testid="button-remove-filters"
+          onClick={ deleteAllFilters }
+        >
+          X ALL
+        </button>
       </div>
       <div>
         <label htmlFor="nameFilter">

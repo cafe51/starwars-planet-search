@@ -1,10 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import StarWarsContext from '../Context/StarWarsContext';
 // import PropTypes from 'prop-types';
 
 function TablePlanets() {
-  const { usePlanets } = useContext(StarWarsContext);
-
+  const { usePlanets, setPlanetFunction, useFiltersList } = useContext(StarWarsContext);
+  useEffect(() => {
+    setPlanetFunction();
+  }, [useFiltersList]);
   return (
     <table>
       <thead>

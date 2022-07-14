@@ -45,12 +45,6 @@ function StarWarsProvider({ children }) {
     });
   };
 
-  const setFilterListFunction = (value) => {
-    setFiltersList(
-      [...useFiltersList.filter((filter) => (filter.collumnFilter !== value))],
-    );
-  };
-
   const collumns = [
     'population',
     'orbital_period',
@@ -58,6 +52,27 @@ function StarWarsProvider({ children }) {
     'rotation_period',
     'surface_water',
   ];
+
+  const setPlanetFunction = () => {
+    useFiltersList.forEach((filter) => {
+      if (filter.operatorFilter === 'maior que') {
+        setPlanets(usePlanets
+          .filter((result) => (
+            Number(result[filter.collumnFilter]) > Number(filter.valueFilter)
+          )));
+      } else if (filter.operatorFilter === 'menor que') {
+        setPlanets(usePlanets
+          .filter((result) => (
+            Number(result[filter.collumnFilter]) < Number(filter.valueFilter)
+          )));
+      } else if (filter.operatorFilter === 'igual a') {
+        setPlanets(usePlanets
+          .filter((result) => (
+            Number(result[filter.collumnFilter]) === Number(filter.valueFilter)
+          )));
+      }
+    });
+  };
 
   const collumnsToFilter = useFiltersList.map((c) => c.collumnFilter);
   const filteredCollumns = collumns.filter((c) => !collumnsToFilter.includes(c));
@@ -70,27 +85,44 @@ function StarWarsProvider({ children }) {
     // const newPlanets = usePlanets;
     // console.log(useStandardPlanets);
     setFiltersList(useFiltersList.concat([useFilters]));
-    if (useFilters.operatorFilter === 'maior que') {
-      setPlanets(usePlanets
-        .filter((result) => (
-          Number(result[useFilters.collumnFilter]) > Number(useFilters.valueFilter)
-        )));
-    } else if (useFilters.operatorFilter === 'menor que') {
-      setPlanets(usePlanets
-        .filter((result) => (
-          Number(result[useFilters.collumnFilter]) < Number(useFilters.valueFilter)
-        )));
-    } else if (useFilters.operatorFilter === 'igual a') {
-      setPlanets(usePlanets
-        .filter((result) => (
-          Number(result[useFilters.collumnFilter]) === Number(useFilters.valueFilter)
-        )));
-    }
     setFilter({
       ...useFilters,
       collumnFilter: filteredCollumns
         .filter((f) => useFilters.collumnFilter !== f)[0],
     });
+    // if (useFilters.operatorFilter === 'maior que') {
+    //   setPlanets(usePlanets
+    //     .filter((result) => (
+    //       Number(result[useFilters.collumnFilter]) > Number(useFilters.valueFilter)
+    //     )));
+    // } else if (useFilters.operatorFilter === 'menor que') {
+    //   setPlanets(usePlanets
+    //     .filter((result) => (
+    //       Number(result[useFilters.collumnFilter]) < Number(useFilters.valueFilter)
+    //     )));
+    // } else if (useFilters.operatorFilter === 'igual a') {
+    //   setPlanets(usePlanets
+    //     .filter((result) => (
+    //       Number(result[useFilters.collumnFilter]) === Number(useFilters.valueFilter)
+    //     )));
+    // }
+    // setFilter({
+    //   ...useFilters,
+    //   collumnFilter: filteredCollumns
+    //     .filter((f) => useFilters.collumnFilter !== f)[0],
+    // });
+  };
+
+  const setFilterListFunction = (value) => {
+    setFiltersList(
+      [...useFiltersList.filter((filter) => (filter.collumnFilter !== value))],
+    );
+    setPlanets(useStandardPlanets);
+  };
+
+  const deleteAllFilters = () => {
+    setPlanets(useStandardPlanets);
+    setFiltersList([]);
   };
 
   const context = {
@@ -101,6 +133,8 @@ function StarWarsProvider({ children }) {
     handleChangeFilter,
     handleClickFilter,
     setFilterListFunction,
+    setPlanetFunction,
+    deleteAllFilters,
     filteredCollumns,
   };
 
