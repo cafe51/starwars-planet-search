@@ -108,6 +108,7 @@ function Filters() {
       </div>
       <div>
         <label htmlFor="value-filter">
+          Valor
           <input
             type="number"
             value={ useFilters.valueFilter }
